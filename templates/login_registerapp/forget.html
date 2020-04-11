@@ -1,0 +1,54 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>忘记密码</title>
+    <link rel="stylesheet" href="{%static 'css/log.css' %}">
+    <link rel="stylesheet" href="{%static 'css/semantic.css' %}">
+</head>
+<body class="forget">
+    <div class="ui center aligned grid" style="margin-top: 200px">
+        <div class="ui six wide column">
+            <h1 class="ui teal header">忘记密码</h1>
+            <div class="ui segment">
+                <div class="ui content">
+                    <div class="ui form">
+                        <div class="field">
+                            <input type="text" name="username" id="name" placeholder="请输入用户名"><br>
+                        </div>
+                        <div class="field">
+                            <input type="text" name="email" id="email" placeholder="请输入邮箱"><br>
+                        </div>
+                        <span id="false_state"></span>
+                        <button class="ui fluid large teal button" onclick="fn1();">下一步</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    function fn1() {
+        var usrname = document.getElementById('name').value;
+        var usremail = document.getElementById('email').value;
+        console.log(usrname,usremail);
+        var xhr = new XMLHttpRequest();
+        var url = '{% url 'login_registerapp:change_logic' %}';
+        xhr.open('post',url,true);
+        xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+        xhr.send('username='+usrname+'&email='+usremail);
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState===4 && xhr.status === 200){
+                if(xhr.responseText==='2'){
+                    document.getElementById('false_state').innerHTML = '用户名和邮箱不匹配'
+                }else if (xhr.responseText==='1'){
+                    location.href = '{% url 'login_registerapp:change' %}'
+                }
+            }
+        }
+    }
+</script>

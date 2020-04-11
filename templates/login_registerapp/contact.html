@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="cn" dir="ltr" class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=no">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>给网友仲杰留言 </title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link title="style2" href="{% static 'css/style.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/nprogress.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/nivo-slider.css' %}" type="text/css" media="screen" />
+    <link rel="stylesheet" href="{% static 'css/default.css' %}" type="text/css" media="screen" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">
+              Toggle navigation
+            </span>
+            <span class="icon-bar">
+            </span>
+            <span class="icon-bar">
+            </span>
+            <span class="icon-bar">
+            </span>
+            </button>
+
+        </div>
+        <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav header-menu">
+                <li>
+                    <a href="#">
+                        {{ user.nickname }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'login_registerapp:log_out' %}">
+                        注销
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!--Start banner img-->
+<div class="container-filed" id="banner_container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="slider-wrapper theme-default">
+                <div id="slider" class="nivoSlider">
+                    <img src="assets/img/owl.jpg" data-thumb="assets/img/owl.jpg" alt="" />
+                    <a href="assets/img/owl2.jpg"><img src="assets/img/owl2.jpg" alt="" /></a>
+                    <img src="assets/img/owl.jpg" data-thumb="assets/img/owl.jpg" alt="" />
+                    <img src="assets/img/owl2.jpg" data-thumb="assets/img/owl2.jpg" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End banner img-->
+<div class="container-fluid main-container contact" id="main-container">
+    <div class="row top-title">
+        <div class="col-md-12">
+            <h1 class="page-title">
+                给我留言
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 post-container">
+            <h2 class="post-title">
+                <a href="contact.html" rel="bookmark">
+                    给我留言
+                </a>
+            </h2>
+            <div class="meta-box">
+            <span class="comments-link">
+              <a href="contact.html" class="ds-thread-count" data-thread-key="750" title="Comment on 给我留言">
+                  {{ num }} 条评论
+              </a>
+            </span>
+            </div>
+            <div class="post-content">
+                <p>
+                    <a href="javascript:;">
+                <p>
+                    欢迎来到仲杰的博客
+                </p>
+                <blockquote class="contact-list" id="contact-list">
+                    <ul>
+                        <li>
+                            有朋自远方来，不亦悦乎。
+                        </li>
+                        <li>
+                            既然来了，如果我们有共同兴趣的话，不妨留言讨论，说不定我们会成为朋友。
+                        </li>
+                    </ul>
+                </blockquote>
+                <p>
+                    有想说的话请留言吧~
+                </p>
+            </div>
+            <div class="meta-box">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 post-container">
+            <div class="post-content">
+                <div class="ds-thread" data-thread-key="750" data-author-key="1" data-title="给我留言"
+                     data-url="contact.php">
+                </div>
+                <div id="ds-ssr">
+                    <ol id="commentlist">
+                        {% for foo in comment %}
+                        <li class="comment even thread-even depth-1" id="li-comment-11325">
+                            <article id="comment-11325" class="comment">
+                                <footer class="comment-meta">
+                                    <cite class="comment-author vcard">
+                      <span class="fn">
+                        <a href=""
+                           rel='external nofollow' class='url'>
+                            {{ foo.nickname }}
+                        </a>
+                      </span>
+                                        on
+                                        <a rel="nofollow" href="">
+                                            <time pubdate datetime="2015-01-06T00:15:56+00:00">
+                                                {{ foo.createtime }}
+                                            </time>
+                                        </a>
+                      <span class="says">
+                        said:
+                      </span>
+                                    </cite>
+                                </footer>
+                                <div class="comment-content">
+                                    <p>
+                                        {{ foo.body }}
+                                    </p>
+                                </div>
+                            </article>
+                        </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 post-container">
+            <div class="post-content">
+                <form method="post" action="{% url 'login_registerapp:contact_logic' %}" id="form1" class="contact-form">
+                    {% csrf_token %}
+                    <div>
+
+                    </div>
+                    <div>
+          <span>
+            <label>
+                内容*
+            </label>
+          </span>
+          <span>
+            <textarea name="contact_con" class="textbox">
+            </textarea>
+          </span>
+                    </div>
+                    <div>
+          <span>
+            <input type="submit" value="提交" name="tijiao">
+          </span>
+                    </div>
+                </form>
+            </div>
+            <div class="meta-box">
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+
+</html>
